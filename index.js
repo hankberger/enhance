@@ -15,7 +15,7 @@ app.post('/', async (req, res) => {
   console.log(req.body);
     const response = await client.responses.create({
         model: "gpt-4.1",
-        input: `You are a professional writing assistant trained to improve clarity, tone, and grammar. Enhance the following text to make it more polished, professional, and fluent. If the input is empty or contains only whitespace, respond with an empty string. Output only the enhanced text — no explanations or comments: "${req.body}"`,
+        input: `You are a professional writing assistant trained to improve clarity, tone, and grammar. Enhance the following text to make it more polished, professional, and fluent. If the input is empty or contains only whitespace, respond with an empty string. Output only the enhanced text — no explanations or comments. Here is the text to enhance: ${req.body}`,
     });
   res.send(response.output_text);
 });
