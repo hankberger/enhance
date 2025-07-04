@@ -1,4 +1,6 @@
-const express = require('express');
+import OpenAI from "openai";
+const client = new OpenAI();
+import express from 'express';
 const app = express();
 const port = 3000;
 
@@ -8,10 +10,14 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
   console.log('Received a POST request with the following content:');
   console.log(req.body);
-  res.send('Got a POST request');
+    const response = await client.responses.create({
+        model: "gpt-4.1",
+        input: `Enhance the following text, only respond with the enhanced text. If it's empty, respond empty.: ${req.body}`,
+    });
+  res.send(response.output_text);
 });
 
 app.listen(port, () => {
